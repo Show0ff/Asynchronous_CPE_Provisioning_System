@@ -1,19 +1,27 @@
-import datetime
-from app.models import TaskRecord, ProvisionParameters, TaskStatus
-from factories.base import BaseFactory
-from service_b.tests.factories.fuzzyies import FuzzySerialID
+import random
+from factory import Factory, LazyAttribute
+
+from app.models import ProvisionRequest, ProvisionParameters
+from tests.factories.fuzzyies import FuzzyCred
 
 
-class TaskFactory(BaseFactory):
+class ProvisionBodyFactory(Factory):
+    """
+    Генерирует dict для POST /cpe/{id}.
+    """
+
     class Meta:
-        model = TaskRecord
-        collection = "tasks"
+        model = ProvisionRequest
 
-    equipment_id = FuzzySerialID()
-    parameters = ProvisionParameters(
-        username="admin",
-        password="admin",
-        interfaces=[1],
+    timeoutInSeconds = LazyAttribute(lambda _: random.randint(61, 120))
+    parameters = LazyAttribute(
+        lambda _: ProvisionParameters(
+            username=FuzzyCred().fuzz(),
+            password=FuzzyCred().fuzz(),
+            interfaces=[1],
+        )
     )
-    timestamp = datetime.datetime.utcnow()
-    status = TaskStatus.running
+
+    @classmethod
+    def build_json(cls) -> dict:
+        return cls.build().model_dump()

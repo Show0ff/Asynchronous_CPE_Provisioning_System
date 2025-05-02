@@ -83,7 +83,7 @@ SERVICE_A_URL - адрес сервиса А
 
 1.Клонировать Репозиторий
 ```bash
-    git clone https://github.com/Show0ff/task_rt
+    git clone https://github.com/Show0ff/Asynchronous_CPE_Provisioning_System
 ```
 
 2.Cоздать или заполнить .env на основе .env.example(если просто протестировать, то скопируйте все из .env.example в созданный .env файл внутри сервиса в каждом проекте)

@@ -1,9 +1,14 @@
 import random
 import string
-
+import uuid
 from factory.fuzzy import BaseFuzzyAttribute
 
 SERIAL_ID_REGEX = r"^[a-zA-Z0-9]{6,}$"
+
+
+class FuzzyUUID4(BaseFuzzyAttribute):
+    def __new__(cls, *args, **kwargs):
+        return str(uuid.uuid4())
 
 
 class FuzzySerialID(BaseFuzzyAttribute):
