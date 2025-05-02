@@ -1,10 +1,6 @@
 from enum import StrEnum
 from datetime import datetime
-from pydantic import BaseModel, Field, constr
-
-from app.constants import SERIAL_ID_REGEX
-
-SerialID = constr(pattern=SERIAL_ID_REGEX)
+from pydantic import BaseModel, Field
 
 
 class ProvisionParameters(BaseModel):
