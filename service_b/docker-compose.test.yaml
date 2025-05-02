@@ -1,0 +1,13 @@
+services:
+
+  mongodb:
+    image: mongo:8
+
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile-test
+    env_file:
+      - .env.test
+    depends_on:
+      - mongodb
